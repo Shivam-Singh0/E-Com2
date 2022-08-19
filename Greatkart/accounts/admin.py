@@ -1,6 +1,12 @@
+
 from django.contrib import admin
 from .models import  Account
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.backends import ModelBackend, UserModel
+from django.db.models import Q
+from django.db import models
+
+from django.contrib.auth.backends import ModelBackend
 # Register your models here.
 
 class AcountAdmin(UserAdmin):
@@ -13,3 +19,8 @@ class AcountAdmin(UserAdmin):
     fieldsets = ()
 
 admin.site.register(Account, AcountAdmin)
+
+
+
+
+

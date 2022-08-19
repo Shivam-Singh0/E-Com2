@@ -16,9 +16,41 @@ class Product(models.Model):
     is_available = models.BooleanField(default=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     
+
+    
     def __str__(self):
         return self.product_name
 
     def get_absolute_url(self):
         return reverse("detail",args=[self.category.slug, self.slug])
+
+variations_category_choice = {
+    ("color", "color"),
+    ("size", "size"),
+}
+
+
+class VariationManager(models.Manager):
+    def colors(self):
+        return super(VariationManager, self).filter(variations_category = 'color')
+
+    def sizes(self):
+        return super(VariationManager, self).filter(variations_category = 'size')
+
+class Variations(models.Model):
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    variations_category = models.CharField(max_length=100, choices=variations_category_choice)
+    variation_value = models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)
+    created_date = models.DateField(auto_now=True)
+
+    objects = VariationManager()
+    class Meta:
+        verbose_name = ("Variations")
+        verbose_name_plural = ("Variations")
+
+    def __str__(self):
+        return self.variation_value
+
     

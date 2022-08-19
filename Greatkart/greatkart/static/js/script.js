@@ -58,3 +58,8 @@ $(document).ready(function() {
 }); 
 // jquery end
 
+setTimeout(function(){
+    
+    $('#message').remove();
+    
+}, 4000)    // 2000 millisecond
